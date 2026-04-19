@@ -10,39 +10,201 @@
 
 
 \section{抄録}
-本研究は、一様な重力場の中にある一端を固定された紐の落下挙動を解析したものである。
-紐を「$N$個の質点と微小な長さを持つ剛体棒からなる$N$重振り子」として定式化し、
-$N\rightarrow\infty$の極限をとることで解析を行った。
-その結果、紐は初期状態の直線を保ったまま落下をしようとするが、固定端にデルタ関数的な得意性が現れ、
-固定端の直後から紐が急激に折れ曲がりながら落ちていくことがわかった。
+本研究は，一様な重力場の中にある一端を固定された紐の落下挙動を解析したものである．
+紐を「$N$個の剛体棒と質点からなる$N$重振り子」として定式化し，
+$N\rightarrow\infty$の極限をとることで解析を行った．
+その結果，紐は初期状態の直線を保ったまま落下をしようとするが，固定端にデルタ関数的な特異性が現れ，
+固定端の直後から紐が急激に折れ曲がりながら落ちていくことがわかった．
 
 
 
 \section{研究の背景と目的}
-32重振り子のシミュレーション動画を視聴したとき、落下開始時の挙動が紐のように見えた。
-この挙動を観察すると、32重振り子は初期状態の直線を保ったまま落下しようとするが、
-時間経過と共に固定端側から折れ曲がってゆくことに気がついた。
-同時に、紐という連続的な物体がどのように運動するのか疑問に思った。
-一端を固定された紐の落下挙動を解明することを目的として、本研究を行った。
+32重振り子のシミュレーション動画を視聴したとき，落下開始時の挙動が紐のように見えた．
+この挙動を観察すると，32重振り子は初期状態の直線を保ったまま落下しようとするが，
+時間経過と共に固定端側から折れ曲がってゆくことに気がついた．
+同時に，紐という連続的な物体がどのように運動するのか疑問に思った．
+一端を固定された紐の落下挙動を解明することを目的として，本研究を行った．
 
 
 
 \section{方法}
-まず、紐を$N$等分することによって、
-「$N$個の質点と微小な長さを持つ剛体棒からなる$N$重振り子」として定式化する。
-次に、$N$重振り子のラグランジアンを導出し、運動方程式を得る。
-最後に、$N\rightarrow\infty$の極限をとり、その結果の物理的意味を考察する。
+まず，紐を$N$等分することによって，
+「$N$個の剛体棒と質点からなる$N$重振り子」として定式化する．
+次に，$N$重振り子のラグランジアンを導出し，運動方程式を得る．
+最後に，$N\rightarrow\infty$の極限をとり，その結果の物理的意味を考察する．
 
 
 
 \section{結果}
 \subsection{紐の定式化}
+紐の長さを$l$，質量を$m$とする．紐を$N$等分し，長さ$\varDelta l = \frac{l}{N}$の剛体棒と，
+質量$\varDelta m = \frac{m}{N}$の質点が連なった$N$重振り子を考える．
+固定端を原点とし，地面と平行に$x$軸，鉛直下向きに$y$軸をとる．
+時刻$t$における$j$番目の質点が鉛直線となす角を$\varphi_j$とすると，
+$i$番目の質点の座標$\left(x_i, y_i\right)$は，次のように表される．
+\begin{equation*}
+  x_i = \varDelta l \sum_{j = 1}^{i} \sin \varphi_j, \quad
+  y_i = \varDelta l \sum_{j = 1}^{i} \cos \varphi_j.
+\end{equation*}
+
+\subsection{ラグランジアンの導出}
+系の運動エネルギー$T$は，
+\begin{equation*}
+  T = \frac{1}{2} \varDelta m \sum_{i = 1}^{N} \left(\dot{x_i}^2 + \dot{y_i}^2\right)
+\end{equation*}
+と表される．ここで，
+\begin{equation*}
+  \dot{x_i}^2 + \dot{y_i}^2
+  = \left(\varDelta l \sum_{j = 1}^{i} \dot{\varphi_j} \cos \varphi_j\right)^2
+  - \left(\varDelta l \sum_{j = 1}^{i} \dot{\varphi_j} \sin \varphi_j\right)^2.
+\end{equation*}
+これを展開して整理すると次のようになる．
+\begin{equation*}
+  \dot{x_i}^2 + \dot{y_i}^2
+  = {\varDelta l}^2 \sum_{j = 1}^{i} \sum_{k = 1}^{i}
+    \dot{\varphi_j} \dot{\varphi_k} \cos \left(\varphi_j - \varphi_k\right).
+\end{equation*}
+したがって，
+\begin{equation*}
+  T = \frac{1}{2} \varDelta m {\varDelta l}^2
+      \sum_{i = 1}^{N} \sum_{j = 1}^{i} \sum_{k = 1}^{i}
+      \dot{\varphi_j} \dot{\varphi_k} \cos \left(\varphi_j - \varphi_k\right).
+\end{equation*}
+これは和の順序を入れ替えることで次のように変形できる．
+\begin{equation}
+  T = \frac{1}{2} \varDelta m {\varDelta l}^2
+      \sum_{j = 1}^{N} \sum_{k = 1}^{N} \left(N - \max \left(j, k\right) + 1\right)
+      \dot{\varphi_j} \dot{\varphi_k} \cos \left(\varphi_j - \varphi_k\right).
+\end{equation}
+
+一方，系のポテンシャル・エネルギー$U$は，
+\begin{equation*}
+  U = - \varDelta m g \sum_{i = 1}^{N} \varDelta y_i
+\end{equation*}
+すなわち，
+\begin{equation*}
+  U = - \varDelta m g \varDelta l \sum_{i = 1}^{N} \sum_{j = 1}^{i} \cos \varphi_j
+\end{equation*}
+と表される．これは和の順序を入れ替えることで次のように変形できる．
+\begin{equation}
+  U = - \varDelta m g \varDelta l \sum_{j = 1}^{N} \left(N - j + 1\right)
+      \cos \varphi_j.
+\end{equation}
+
+これらによりラグランジアン$L = T - U$が構成され，ラグランジュ方程式
+\begin{equation}
+  \frac{\mathrm{d}}{\mathrm{d}t} \frac{\partial L}{\partial \dot{\varphi_k}}
+  - \frac{\partial L}{\partial \varphi_k} = 0
+  \quad \left(k = 1, 2, \dots, N\right)
+\end{equation}
+が定まる．
 
 
 
-\subsection{ラグランジアンと運動方程式の導出}
+\subsection{運動方程式の導出}
+時刻$t = 0$に紐の一端を放したとする．本研究で考えるのは落下挙動であるため，$t$は微小であるとする．
 
+$t$が微小のとき，$\varphi_k\left(t\right)$
+は次のように表される．
+\begin{equation*}
+  \varphi_k\left(t\right) = \varphi_k\left(0\right)
+                        + \dot{\varphi_k}\left(0\right)t
+                        + \frac{\ddot{\varphi_k}\left(0\right)}{2}t^2.
+\end{equation*}
+初期状態において，角速度は$0$であり，振り子は角度$\theta$で一直線になっているため，
+\begin{equation}
+  \varphi_k\left(0\right) = \theta, \quad
+  \dot{\varphi_k}\left(0\right) = 0.
+\end{equation}
+したがって，
+\begin{equation*}
+  \varphi_k\left(t\right) = \theta + \frac{\ddot{\varphi_k}\left(0\right)}{2}t^2.
+\end{equation*}
 
+$\ddot{\varphi_k}\left(0\right)$を得るために，(3)に$t = 0$を代入した式
+\begin{equation}
+  \left.\frac{\mathrm{d}}{\mathrm{d}t} \frac{\partial L}{\partial \dot{\varphi_k}}\right|_{t = 0}
+  - \left.\frac{\partial L}{\partial \varphi_k}\right|_{t = 0} = 0
+\end{equation}
+を計算する．
+
+(5)の第一項を求める．$L$を$\dot{\varphi_k}$で偏微分すると，
+\begin{equation*}
+  \frac{\partial L}{\partial \dot{\varphi_k}}
+  = \frac{\partial}{\partial \dot{\varphi_k}}
+    \frac{1}{2} \varDelta m {\varDelta l}^2
+    \sum_{a = 1}^{N} \sum_{b = 1}^{N} \left(N - \max \left(a, b\right) + 1\right)
+    \dot{\varphi_a} \dot{\varphi_b} \cos \left(\varphi_a - \varphi_b\right)
+\end{equation*}
+であり，
+\begin{equation*}
+  C_{ab} = \frac{1}{2} \varDelta m {\varDelta l}^2 \left(N - \max \left(a, b\right) + 1\right)
+           \cos \left(\varphi_a - \varphi_b\right)
+\end{equation*}
+とおくと，
+\begin{equation*}
+  \frac{\partial L}{\partial \dot{\varphi_k}}
+  = \sum_{a = 1}^{N} \sum_{b = 1}^{N} C_{ab}
+    \frac{\partial}{\partial \dot{\varphi_k}} \dot{\varphi_a} \dot{\varphi_b}.
+\end{equation*}
+積の微分により，
+\begin{equation*}
+  \frac{\partial L}{\partial \dot{\varphi_k}}
+  = \sum_{a = 1}^{N} \sum_{b = 1}^{N} C_{ab}
+    \left(\frac{\partial \dot{\varphi_a}}{\partial \dot{\varphi_k}} \dot{\varphi_b}
+        + \frac{\partial \dot{\varphi_b}}{\partial \dot{\varphi_k}} \dot{\varphi_a}\right).
+\end{equation*}
+すなわち，
+\begin{equation*}
+  \frac{\partial L}{\partial \dot{\varphi_k}}
+  = \sum_{a = 1}^{N} \sum_{b = 1}^{N} C_{ab}
+    \frac{\partial \dot{\varphi_a}}{\partial \dot{\varphi_k}} \dot{\varphi_b}
+  + \sum_{a = 1}^{N} \sum_{b = 1}^{N} C_{ab}
+    \frac{\partial \dot{\varphi_b}}{\partial \dot{\varphi_k}} \dot{\varphi_a}.
+\end{equation*}
+$\frac{\partial \dot{\varphi_a}}{\partial \dot{\varphi_k}}$は，
+$a = k$のとき$1$，$a \neq k$のとき$0$であり，$b$についても同様である．したがって，
+\begin{equation*}
+  \frac{\partial L}{\partial \dot{\varphi_k}}
+  = \sum_{b = 1}^{N} C_{kb} \dot{\varphi_b} + \sum_{a = 1}^{N} C_{ak} \dot{\varphi_a}.
+\end{equation*}
+$a$，$b$を$j$に置き換えて整理すると，
+\begin{equation*}
+  \frac{\partial L}{\partial \dot{\varphi_k}} = 2 \sum_{j = 1}^{N} C_{jk} \dot{\varphi_j}.
+\end{equation*}
+すなわち，
+\begin{equation*}
+  \frac{\partial L}{\partial \dot{\varphi_k}}
+  = \varDelta m {\varDelta l}^2 \sum_{j = 1}^{N}
+    \left(N - \max \left(j, k\right) + 1\right) \dot{\varphi_j}
+    \cos \left(\varphi_j - \varphi_k\right).
+\end{equation*}
+これを$t$で微分し，$t = 0$を代入すると，初期条件(4)より，
+\begin{equation}
+  \left.\frac{\mathrm{d}}{\mathrm{d}t} \frac{\partial L}{\partial \dot{\varphi_k}}\right|_{t = 0}
+  = \varDelta m {\varDelta l}^2 \sum_{j = 1}^{N}
+    \left(N - \max \left(j, k\right) + 1\right) \ddot{\varphi_j}.
+\end{equation}
+
+(5)の第二項を求める．初期条件(4)より，
+\begin{equation}
+  \left.\frac{\partial L}{\partial \varphi_k}\right|_{t = 0}
+  = - \varDelta m g \varDelta l \left(N - k + 1\right) \sin \theta.
+\end{equation}
+
+(6)，(7)より，(5)は，
+\begin{equation*}
+  \varDelta m {\varDelta l}^2 \sum_{j = 1}^{N}
+  \left(N - \max \left(j, k\right) + 1\right) \ddot{\varphi_j}
+  + \varDelta m g \varDelta l \left(N - k + 1\right) \sin \theta = 0.
+\end{equation*}
+両辺を$\varDelta m$で割って整理すると，
+落下時の角加速度$\ddot{\varphi_k}$に関する次の方程式が得られる．
+\begin{equation}
+  \sum_{j = 1}^{N} \left(N \varDelta l
+  - \max \left(j \varDelta l, k \varDelta l\right) + \varDelta l\right) \ddot{\varphi_j}
+  \varDelta l + g \left(N \varDelta l - k \varDelta l + \varDelta l\right) \sin \theta = 0.
+\end{equation}
 
 \subsection{$N\rightarrow\infty$の極限}
 
@@ -55,5 +217,6 @@ $N\rightarrow\infty$の極限をとることで解析を行った。
   \item Shiki『N重振り子の運動方程式』
   \item ランダウ=リフシッツ『力学』東京図書
   \item 小出昭一郎『解析力学』岩波書店
+  \item 杉山忠男『理論物理への道標』
 \end{thebibliography}
 \end{document}
